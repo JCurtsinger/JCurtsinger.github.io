@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"><meta name="viewport" content="width=device-width,
+	initial-scale=1">
+	<title>Program 5</title>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.2/handlebars.min.js"></script>
+    <!-- bootstrap on github, need to use https for these links -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+  <div class="container">
+      <h2>Select a Major</h2>
+      <div style='padding: 5px;'> 
+         <button type='button' class="btn btn-primary" onClick="getData('CIT')">CIT majors</button> 
+         <button type='button' class="btn btn-primary" onClick="getData('BUS')">Business majors</button>  
+      </div>
+  
+  		<h3>We filter our dataset by major</h3>
+  			<div id="menuTable"></div>
+  	</div>
+</body>
+
+   <!-- Handlebars template -->
+  <script type="text/x-handlebars-template" id="tableTemplate">
+      <table class="table table-striped">
+          <tr><th>Name</th><th>Major</th><th>Midterm</th><th>Final</th></tr>
+             {{#each rows}}
+                <tr>
+                     <td>{{name}}</td><td>{{major}}</td><td>{{midterm}}</td><td>{{final}}</td>
+                </tr>
+             {{/each}}
+      </table>
+  </script>
+
+    <!-- application ajax code -->
+  <script>
+
+  function getData(selected_major) {      // called when a button is clicked. parameter selected_major = CIT or BUS
+      var request = new XMLHttpRequest();
+      request.open('GET', 'cit5students.JSON');      // open Ajax request for data file cit5students.JSON
+ 
+      request.onload = function() {                     // when the data comes back, browser calls this function
+         var data = JSON.parse(request.responseText);    // convert json to javascript array of objects
+
+         students = data.filter(getStudent)       // students array will contain the filtered data using the getStudent() function
+         function getStudent(item) {
+            return item.major == selected_major;   // the new students array will contain only items for the selected major
+         }
+        
+        if (request.status == 200) {    // if all is well as data returns, then compile and populate the template
+            var templateText = document.getElementById('tableTemplate').innerHTML;
+            var compiledTemplateText = Handlebars.compile(templateText);       
+            compiledHtml = compiledTemplateText({ rows: students })          
+            document.getElementById('menuTable').innerHTML = compiledHtml; 
+        }
+        else {
+            document.querySelector('#menuTable').innerHTML = "There was an error, or menu items not found";
+        }
+     }
+     
+     request.send(null);
+  }
+</script>
+</html>
