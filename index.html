@@ -39,7 +39,7 @@
   <!-- application ajax code -->
   <script>
 
-  function getData(selected_major) {      // called when a button is clicked. parameter selected_major = CIT or BUS
+    function getData(selected_major) {      // called when a button is clicked. parameter selected_major = CIT or BUS
       var request = new XMLHttpRequest();
       request.open('GET', 'cit5students.JSON');      // open Ajax request for data file cit5students.JSON
  
@@ -47,11 +47,11 @@
          var data = JSON.parse(request.responseText);    // convert json to javascript array of objects
 
          students = data.filter(getStudent)       // students array will contain the filtered data using the getStudent() function
-         function getStudent(item) {
+      function getStudent(item) {
             return item.major == selected_major;   // the new students array will contain only items for the selected major
          }
         
-        if (request.status == 200) {    // if all is well as data returns, then compile and populate the template
+        if (request.status == 200) {    
             var templateText = document.getElementById('tableTemplate').innerHTML;
             var compiledTemplateText = Handlebars.compile(templateText);       
             compiledHtml = compiledTemplateText({ rows: students })          
