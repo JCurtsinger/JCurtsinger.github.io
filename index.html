@@ -48,21 +48,21 @@
          	var data = JSON.parse(request.responseText);    // convert json to javascript array of objects
       	students = data.filter(getStudent)       // students array will contain the filtered data using the getStudent() function
       	function getStudent(item) {
-            return item.major == selected_major;   // the new students array will contain only items for the selected major
-        }
+      		return item.major == selected_major;   // the new students array will contain only items for the selected major
+        	}
         
-        if (request.status == 200) {    
-            var templateText = document.getElementById('tableTemplate').innerHTML;
-            var compiledTemplateText = Handlebars.compile(templateText);       
-            compiledHtml = compiledTemplateText({ rows: students })          
-            document.getElementById('dataTable').innerHTML = compiledHtml; 
-        }
-        else {
-            document.querySelector('#dataTable').innerHTML = "There was an error, or no info not found";
-        }
-    }
+        	if (request.status == 200) {    
+            	var templateText = document.getElementById('tableTemplate').innerHTML;
+            	var compiledTemplateText = Handlebars.compile(templateText);       
+            	compiledHtml = compiledTemplateText({ rows: students })          
+            	document.getElementById('dataTable').innerHTML = compiledHtml; 
+        	}
+        	else {
+            	document.querySelector('#dataTable').innerHTML = "There was an error, or no info not found";
+        	}
+    	}
      
      request.send(null);
-}
+	}
 </script>
 </html>
