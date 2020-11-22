@@ -22,7 +22,7 @@
   
 <script>
    document.addEventListener('DOMContentLoaded', function() {      // when page has loaded, more or less
-        function getData(major) {      // attach event handler to button
+        document.querySelector('#cit').onclick = function() {      // attach event handler to button
             var request = new XMLHttpRequest();
             request.open('GET', 'cit5students.json');                 // GET request for data
  
