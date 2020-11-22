@@ -46,10 +46,10 @@
       	request.open('GET', 'cit5students.JSON');      // open Ajax request for data file cit5students.JSON
       	request.onload = function() {                     // when the data comes back, browser calls this function
          	var data = JSON.parse(request.responseText);    // convert json to javascript array of objects
-      	students = data.filter(getStudent)       // students array will contain the filtered data using the getStudent() function
-      	function getStudent(item) {
-      		return item.major == selected_major;   // the new students array will contain only items for the selected major
-        	}
+      		students = data.filter(getStudent)       // students array will contain the filtered data using the getStudent() function
+      		function getStudent(item) {
+      			return item.major == selected_major;   // the new students array will contain only items for the selected major
+        		}
         
         	if (request.status == 200) {    
             	var templateText = document.getElementById('tableTemplate').innerHTML;
