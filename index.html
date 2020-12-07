@@ -56,9 +56,9 @@ var app = angular.module('homeApp', []);
 
 app.controller('homeCtrl', function($scope, $http) {
   
-     var today = new Date();  /* get today's date */
-     $scope.date= today.toDateString()
-	   
+   $http.get("students.json")          // get all the students table
+     .then(function (response) {
+      $scope.students = response.data;
 });
 		  
 </script>
