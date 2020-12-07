@@ -6,9 +6,9 @@
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular.min.js"></script> 
-
 </head>
-<body ng-app = "homeApp">
+
+<body ng-app = "studentsApp">
 
 <div class="container">
 <nav class="navbar navbar-inverse">
@@ -25,7 +25,7 @@
 
 </nav>    <!-- end nav-bar -->
 
-<div ng-controller = "homeCtrl">
+<div ng-controller = "allCtrl">
 
 <h2>Advisees</h2>
           <p><input type='text' ng-model='search_text' > Enter Search text</p>
@@ -52,14 +52,17 @@
 </div>   <!-- end class= 'container' -->
 
 <script>
-var app = angular.module('homeApp', []);
-
-app.controller('homeCtrl', function($scope, $http) {
-  
+var app = angular.module('studentsApp', []);
+	  
+		  
+app.controller('allCtrl', function($scope, $http) {
+    
    $http.get("students.json")          // get all the students table
      .then(function (response) {
-      $scope.students = response.data;
+	    $scope.students = response.data;  
+     });
+
 });
-		  
+
 </script>
 </body></html>
